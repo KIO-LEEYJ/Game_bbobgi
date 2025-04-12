@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# 환경설정
+.vscode/
+.env
+
+# 빌드 결과물
+dist/
+build/
+node_modules/
+
+# 기타
+*.log
+*.zip
