@@ -1,3 +1,23 @@
-function sayHello() {
-  alert("프라이데이가 도와줬어요! 🧠✨");
-}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📌추억의 뽑기판📌</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-pink-100 to-yellow-100 min-h-screen flex flex-col items-center p-6">
+  <h1 class="text-3xl font-bold mb-6">📌추억의 뽑기판📌</h1>
+
+  <div class="flex flex-col sm:flex-row gap-4 mb-4">
+    <input type="number" id="rows" placeholder="가로 줄 수" class="border p-2 rounded" />
+    <input type="number" id="cols" placeholder="세로 줄 수" class="border p-2 rounded" />
+    <input type="number" id="winners" placeholder="당첨 개수" class="border p-2 rounded" />
+    <button onclick="generateBoard()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">시작하기</button>
+  </div>
+
+  <div id="board" class="grid gap-2"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,7 +1,0 @@
-# macOS system files
-.DS_Store
-
-# node, build tools, temp
-node_modules/
-dist/
-.env
