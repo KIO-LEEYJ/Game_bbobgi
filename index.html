@@ -4,26 +4,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>📌추억의 뽑기판📌</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>📌 추억의 뽑기판</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Gowun Dodum', sans-serif;
+    }
+
+    .flip {
+      transform: rotateY(180deg);
+      transition: transform 0.4s ease-in-out;
+    }
+  </style>
 </head>
 
 <body
-  class="min-h-screen flex flex-col items-center justify-start bg-gradient-to-br from-pink-100 to-yellow-100 p-6 font-[Do Hyeon]">
-  <h1 class="text-4xl font-bold mb-6 text-gray-800 drop-shadow-md">📌추억의 뽑기판📌</h1>
+  class="min-h-screen bg-gradient-to-br from-[#FFE3E3] via-[#FFF2CC] to-[#DFF6FF] flex flex-col items-center py-12 px-4">
+  <h1 class="text-4xl font-extrabold mb-8 text-gray-800 flex items-center gap-2">
+    <span>📌</span>추억의 뽑기판<span>📌</span>
+  </h1>
 
-  <div class="flex flex-col sm:flex-row gap-3 mb-6">
-    <input type="number" id="rows" placeholder="가로 줄 수" class="input" />
-    <input type="number" id="cols" placeholder="세로 줄 수" class="input" />
-    <input type="number" id="winners" placeholder="당첨 개수" class="input" />
-    <button onclick="generateBoard()" class="btn-primary">시작하기</button>
+  <div class="flex flex-col sm:flex-row gap-3 mb-6 w-full max-w-2xl justify-center">
+    <input type="number" id="rows" placeholder="가로 줄 수"
+      class="w-full sm:w-auto border rounded-md px-4 py-2 text-center shadow-sm focus:ring-2 focus:ring-indigo-400" />
+    <input type="number" id="cols" placeholder="세로 줄 수"
+      class="w-full sm:w-auto border rounded-md px-4 py-2 text-center shadow-sm focus:ring-2 focus:ring-indigo-400" />
+    <input type="number" id="winners" placeholder="당첨 개수"
+      class="w-full sm:w-auto border rounded-md px-4 py-2 text-center shadow-sm focus:ring-2 focus:ring-indigo-400" />
+    <button onclick="generateBoard()"
+      class="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-md shadow-md transition">
+      시작하기
+    </button>
   </div>
 
-  <div id="board" class="grid gap-3"></div>
+  <div id="board" class="grid gap-3 w-full max-w-4xl"></div>
 
-  <script src="script.js"></script>
+  <script>
+    let boardData = [];
+    function generateBoard() {
+      const rows = parseInt(document.getElementById("rows").value);
+      const cols = parseInt(document.getElementById("cols").value);
+      const winners = parseInt(document.getElementById("winners").value);
+      const total = rows * cols;
+
+      // Reset data
+      boardData = Array(total).fill("꽝");
+      const indices = [...Array(total).keys()];
+      for (let i = 0; i < winners; i++) {
+        const rand = Math.floor(Math.random() * indices.length);
+        const selected = indices.splice(rand, 1)[0];
+        boardData[selected] = "당첨";
+      }
+
+      const board = document.getElementById("board");
+      board.innerHTML = "";
+      board.style.gridTemplateColumns = `repeat(${cols}, minmax(60px, 1fr))`;
+
+      for (let i = 0; i < total; i++) {
+        const tile = document.createElement("button");
+        tile.className =
+          "w-16 h-16 sm:w-20 sm:h-20 text-lg sm:text-xl font-bold rounded-xl bg-white text-gray-700 shadow hover:bg-yellow-100 transition duration-300";
+        tile.innerText = i + 1;
+        tile.onclick = function () {
+          if (tile.dataset.clicked) return;
+          tile.dataset.clicked = true;
+          tile.classList.add("flip");
+
+          setTimeout(() => {
+            const result = boardData[i];
+            if (result === "당첨") {
+              tile.className =
+                "w-16 h-16 sm:w-20 sm:h-20 text-xl font-bold rounded-xl bg-pink-500 text-white shadow scale-110 rotate-6";
+              tile.innerText = "🎉";
+            } else {
+              tile.className =
+                "w-16 h-16 sm:w-20 sm:h-20 text-xl font-bold rounded-xl bg-gray-300 text-white shadow scale-95";
+              tile.innerText = "❌";
+            }
+          }, 200);
+        };
+        board.appendChild(tile);
+      }
+    }
+  </script>
 </body>
 
 </html>
