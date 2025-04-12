@@ -5,20 +5,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>📌추억의 뽑기판📌</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-gradient-to-br from-pink-100 to-yellow-100 min-h-screen flex flex-col items-center p-6">
-  <h1 class="text-3xl font-bold mb-6">📌추억의 뽑기판📌</h1>
+<body
+  class="min-h-screen flex flex-col items-center justify-start bg-gradient-to-br from-pink-100 to-yellow-100 p-6 font-[Do Hyeon]">
+  <h1 class="text-4xl font-bold mb-6 text-gray-800 drop-shadow-md">📌추억의 뽑기판📌</h1>
 
-  <div class="flex flex-col sm:flex-row gap-4 mb-4">
-    <input type="number" id="rows" placeholder="가로 줄 수" class="border p-2 rounded" />
-    <input type="number" id="cols" placeholder="세로 줄 수" class="border p-2 rounded" />
-    <input type="number" id="winners" placeholder="당첨 개수" class="border p-2 rounded" />
-    <button onclick="generateBoard()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">시작하기</button>
+  <div class="flex flex-col sm:flex-row gap-3 mb-6">
+    <input type="number" id="rows" placeholder="가로 줄 수" class="input" />
+    <input type="number" id="cols" placeholder="세로 줄 수" class="input" />
+    <input type="number" id="winners" placeholder="당첨 개수" class="input" />
+    <button onclick="generateBoard()" class="btn-primary">시작하기</button>
   </div>
 
-  <div id="board" class="grid gap-2"></div>
+  <div id="board" class="grid gap-3"></div>
 
   <script src="script.js"></script>
 </body>
