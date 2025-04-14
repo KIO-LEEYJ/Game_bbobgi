@@ -4,126 +4,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎯 뽑기판 리디자인</title>
+  <title>행운의 뽑기판</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    @font-face {
+      font-family: 'CookieRun-Regular';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
     body {
       font-family: 'Pretendard', sans-serif;
-      background: linear-gradient(145deg, #e6e6e6, #ffffff);
-      color: #333;
+      background-color: #fff7f2;
     }
 
-    .neu-container {
-      background: #e0e0e0;
-      border-radius: 20px;
-      box-shadow: 9px 9px 20px #bebebe, -9px -9px 20px #ffffff;
-    }
-
-    .neu-button {
-      background: #e0e0e0;
-      border-radius: 12px;
-      box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .neu-button:active {
-      box-shadow: inset 2px 2px 4px #bebebe, inset -2px -2px 4px #ffffff;
-    }
-
-    .tile {
-      width: 64px;
-      height: 64px;
-      font-weight: 600;
-      font-size: 1rem;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #e0e0e0;
-      box-shadow: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-
-    .tile.clicked {
-      box-shadow: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff;
-    }
-
-    .tile.winner {
-      background-color: #38bdf8;
-      color: #fff;
-    }
-
-    .tile.loser {
-      background-color: #f87171;
-      color: #fff;
+    .title {
+      font-family: 'CookieRun-Regular', sans-serif;
     }
   </style>
 </head>
 
-<body class="min-h-screen flex flex-col items-center justify-start px-6 py-10 gap-6">
-  <h1 class="text-3xl font-bold tracking-tight text-gray-700">
-    📍 추억의 뽑기판
-  </h1>
+<body class="flex flex-col items-center gap-6 p-6 min-h-screen">
+  <!-- 타이틀 -->
+  <h1 class="title text-[52px] text-[#F2647C] tracking-tight">행운의 뽑기판</h1>
 
-  <div class="flex flex-wrap justify-center gap-4">
-    <input id="rows" type="number" placeholder="행 수" class="neu-button px-4 py-2 text-sm focus:outline-none" />
-    <input id="cols" type="number" placeholder="열 수" class="neu-button px-4 py-2 text-sm focus:outline-none" />
-    <input id="winners" type="number" placeholder="당첨 수" class="neu-button px-4 py-2 text-sm focus:outline-none" />
-    <button onclick="generateBoard()" class="neu-button px-6 py-2 text-sm font-semibold">
-      시작하기
-    </button>
+  <!-- 조정판 -->
+  <div class="bg-white shadow-md rounded-xl px-6 py-4 flex flex-col items-center gap-4 w-[500px]">
+    <div class="flex gap-4">
+      <input type="number" placeholder="가로" class="border rounded-md px-4 py-2 w-24 text-center" />
+      <input type="number" placeholder="세로" class="border rounded-md px-4 py-2 w-24 text-center" />
+      <input type="number" placeholder="당첨" class="border rounded-md px-4 py-2 w-24 text-center" />
+    </div>
+    <button class="bg-[#F2647C] text-white text-lg w-full py-3 rounded-xl shadow-inner">시작하기</button>
   </div>
 
-  <div id="board" class="grid gap-3 mt-8 neu-container p-6" style="max-width: 600px"></div>
+  <!-- 배너 -->
+  <div class="flex gap-8 my-6">
+    <div class="w-[390px] h-[180px] bg-[#fefefe] shadow-inner flex items-center justify-center text-gray-500 text-sm">
+      배너 사이즈<br />390 x 180
+    </div>
+    <div class="w-[390px] h-[180px] bg-[#fefefe] shadow-inner flex items-center justify-center text-gray-500 text-sm">
+      배너 사이즈<br />390 x 180
+    </div>
+  </div>
 
-  <script>
-    let boardData = [];
-
-    function generateBoard() {
-      const rows = parseInt(document.getElementById('rows').value);
-      const cols = parseInt(document.getElementById('cols').value);
-      const winners = parseInt(document.getElementById('winners').value);
-      const total = rows * cols;
-
-      boardData = Array(total).fill('꽝');
-
-      const indices = [...Array(total).keys()];
-      for (let i = 0; i < winners; i++) {
-        const rand = Math.floor(Math.random() * indices.length);
-        const selected = indices.splice(rand, 1)[0];
-        boardData[selected] = '당첨';
-      }
-
-      const board = document.getElementById('board');
-      board.innerHTML = '';
-      board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-
-      for (let i = 0; i < total; i++) {
-        const tile = document.createElement('div');
-        tile.className = 'tile';
-        tile.innerText = i + 1;
-
-        tile.onclick = function () {
-          if (tile.dataset.clicked) return;
-          tile.dataset.clicked = true;
-          tile.classList.add('clicked');
-
-          if (boardData[i] === '당첨') {
-            tile.classList.add('winner');
-            tile.innerText = '🎉';
-          } else {
-            tile.classList.add('loser');
-            tile.innerText = '❌';
-          }
-        };
-
-        board.appendChild(tile);
-      }
-    }
-
-    generateBoard();
-  </script>
+  <!-- 뽑기판 (5 x 6 예시) -->
+  <div class="grid grid-cols-5 gap-4">
+    <!-- 숫자 타일 예시 (총 30개 중 1~5행 예시) -->
+    <div
+      class="w-16 h-16 rounded-xl bg-[#FDF9F4] flex items-center justify-center text-xl text-[#554F52] font-semibold shadow-md">
+      1</div>
+    <div
+      class="w-16 h-16 rounded-xl bg-[#D2F0F4] flex items-center justify-center text-xl text-[#554F52] font-semibold shadow-md">
+      2</div>
+    <div
+      class="w-16 h-16 rounded-xl bg-[#4C3A5B] flex flex-col items-center justify-center text-white text-xs font-bold shadow-md">
+      ❌<br />꽝
+    </div>
+    <div
+      class="w-16 h-16 rounded-xl bg-[#FFB5B3] flex flex-col items-center justify-center text-white text-xs font-bold shadow-md">
+      🎉<br />당첨
+    </div>
+    <div
+      class="w-16 h-16 rounded-xl bg-[#FDF9F4] flex items-center justify-center text-xl text-[#554F52] font-semibold shadow-md">
+      5</div>
+  </div>
 </body>
 
 </html>
