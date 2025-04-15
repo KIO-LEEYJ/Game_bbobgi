@@ -40,3 +40,21 @@ function generateBoard() {
     board.appendChild(tile)
   }
 }
+
+async function updateBanner(type, imgId, linkId) {
+  try {
+    const res = await fetch(`https://script.google.com/macros/s/AKfycbycPlbKIdi871uncqIz2ApYZ9C5GN4DKbUoqQP76cIlshJbwtYWVgfxI1c5akaEW9ajQA/exec?type=${type}`);
+    const data = await res.json();
+    document.getElementById(imgId).src = data.imageUrl;
+    document.getElementById(linkId).href = data.linkUrl;
+  } catch (e) {
+    console.error(`[${type}] 배너 불러오기 실패:`, e);
+  }
+}
+
+// A/B 배너 초기 로딩 및 10초마다 자동 갱신
+updateBanner('A', 'banner-a-img', 'banner-a-link');
+setInterval(() => updateBanner('A', 'banner-a-img', 'banner-a-link'), 10000);
+
+updateBanner('B', 'banner-b-img', 'banner-b-link');
+setInterval(() => updateBanner('B', 'banner-b-img', 'banner-b-link'), 10000);
