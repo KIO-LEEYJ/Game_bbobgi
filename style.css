@@ -25,3 +25,7 @@
 .tile-lose {
   @apply bg-red-400 text-white;
 }
+
+img {
+  transition: opacity 0.3s ease-in-out;
+}

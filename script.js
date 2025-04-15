@@ -48,8 +48,29 @@ async function updateBanner(type, imgId, linkId) {
     console.log(`✅ ${type} 배너 로드 성공`);
     console.log(`🖼️ imageUrl: ${data.imageUrl}`);
     console.log(`🔗 linkUrl: ${data.linkUrl}`);
-    document.getElementById(imgId).src = data.imageUrl;
-    document.getElementById(linkId).href = data.linkUrl;
+
+    const img = document.getElementById(imgId);
+    const link = document.getElementById(linkId);
+    img.style.opacity = 0; // fade-out for loading
+    img.onload = () => img.style.opacity = 1;
+    img.onerror = () => {
+      console.warn(`⚠️ ${type} 배너 로딩 실패 - 기본 이미지로 대체`);
+      img.src = "/assets/fallback.jpg";
+    };
+    img.src = data.imageUrl;
+    link.href = data.linkUrl;
+
+    // Preload with deduplication
+    const preloadId = `preload-${type}`;
+    let preload = document.getElementById(preloadId);
+    if (!preload) {
+      preload = document.createElement("link");
+      preload.id = preloadId;
+      preload.rel = "preload";
+      preload.as = "image";
+      document.head.appendChild(preload);
+    }
+    preload.href = data.imageUrl;
   } catch (e) {
     console.error(`❌ ${type} 배너 불러오기 실패`, e);
   }
