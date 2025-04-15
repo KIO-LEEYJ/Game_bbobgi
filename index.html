@@ -31,6 +31,30 @@
       font-display: swap;
     }
 
+    @font-face {
+      font-family: 'CookieRun';
+      src: url('./fonts/CookieRun/CookieRun-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'CookieRun';
+      src: url('./fonts/CookieRun/CookieRun-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'CookieRun';
+      src: url('./fonts/CookieRun/CookieRun-Black.woff2') format('woff2');
+      font-weight: 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
     body {
       font-family: 'Pretendard', sans-serif;
       background-color: #fff7f2;
@@ -44,7 +68,7 @@
 
 <body class="flex flex-col items-center gap-6 p-6 min-h-screen">
   <!-- 타이틀 -->
-  <h1 class="title text-[52px] text-[#FFCCCC] tracking-tight">행운의 뽑기판</h1>
+  <h1 class="font-cookierun font-bold text-[52px] text-[#FFCCCC] tracking-tight">행운의 뽑기판</h1>
 
   <!-- 조정판 -->
   <div class="bg-[#FFF8F4] border-[2px] border-[#F9C5C2] rounded-[30px] px-6 py-[40px] w-[820px] h-auto flex flex-col items-center justify-center gap-2">
