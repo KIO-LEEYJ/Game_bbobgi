@@ -45,10 +45,13 @@ async function updateBanner(type, imgId, linkId) {
   try {
     const res = await fetch(`https://script.google.com/macros/s/AKfycbycPlbKIdi871uncqIz2ApYZ9C5GN4DKbUoqQP76cIlshJbwtYWVgfxI1c5akaEW9ajQA/exec?type=${type}`);
     const data = await res.json();
+    console.log(`✅ ${type} 배너 로드 성공`);
+    console.log(`🖼️ imageUrl: ${data.imageUrl}`);
+    console.log(`🔗 linkUrl: ${data.linkUrl}`);
     document.getElementById(imgId).src = data.imageUrl;
     document.getElementById(linkId).href = data.linkUrl;
   } catch (e) {
-    console.error(`[${type}] 배너 불러오기 실패:`, e);
+    console.error(`❌ ${type} 배너 불러오기 실패`, e);
   }
 }
 
