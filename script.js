@@ -1,48 +1,53 @@
+// ✅ Firebase 기반 배너 시스템 – 클린 버전
+
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwhJIUTq587n_vVzKp7H8KiEi6E69KNTGSbo32sPJ1xTaNx5i2Vw-yzLM76uLvBqaxAfw/exec';
+
 function preloadImage(url) {
-  const preload = document.createElement("link");
-  preload.rel = "preload";
-  preload.as = "image";
+  const preload = document.createElement('link');
+  preload.rel = 'preload';
+  preload.as = 'image';
   preload.href = url;
   document.head.appendChild(preload);
 }
 
-async function updateBanner(type, imgId, linkId) {
-  try {
-    const res = await fetch(`https://script.google.com/macros/s/AKfycbycPlbKIdi871uncqIz2ApYZ9C5GN4DKbUoqQP76cIlshJbwtYWVgfxI1c5akaEW9ajQA/exec?type=${type}`);
-    const data = await res.json();
+async function updateBanner(type) {
+  const imgId = `banner-${type.toLowerCase()}-img`;
+  const linkId = `banner-${type.toLowerCase()}-link`;
 
-    console.log(`✅ [${type}] banner loaded`);
-    console.log(`🖼️ imageUrl: ${data.imageUrl}`);
-    console.log(`🔗 linkUrl: ${data.linkUrl}`);
+  try {
+    const response = await fetch(`${WEB_APP_URL}?type=${type}`);
+    const data = await response.json();
+
+    console.log(`✅ [${type}] 배너 로드 완료`);
+    console.log(`🖼️ 이미지 URL: ${data.imageUrl}`);
+    console.log(`🔗 링크 URL: ${data.linkUrl}`);
 
     const img = document.getElementById(imgId);
     const link = document.getElementById(linkId);
 
     if (!img || !link || !data.imageUrl || !data.linkUrl) {
-      console.warn(`⚠️ Invalid banner data for ${type}`);
+      console.warn(`⚠️ [${type}] 유효하지 않은 데이터`);
       return;
     }
 
     img.style.opacity = 0;
     img.onload = () => (img.style.opacity = 1);
     img.onerror = () => {
-      console.warn(`⚠️ [${type}] Image load failed`);
-      img.src = "/assets/fallback.jpg";
+      console.warn(`⚠️ [${type}] 이미지 로딩 실패`);
+      img.src = '/assets/fallback.jpg';
     };
 
     img.src = data.imageUrl;
     link.href = data.linkUrl;
-
     preloadImage(data.imageUrl);
 
-  } catch (err) {
-    console.error(`❌ Failed to load banner for ${type}`, err);
+  } catch (error) {
+    console.error(`❌ [${type}] 배너 로드 실패`, error);
   }
 }
 
+// A/B 배너 동시 업데이트 및 주기적 새로고침
 ['A', 'B'].forEach(type => {
-  const imgId = `banner-${type.toLowerCase()}-img`;
-  const linkId = `banner-${type.toLowerCase()}-link`;
-  updateBanner(type, imgId, linkId);
-  setInterval(() => updateBanner(type, imgId, linkId), 10000);
+  updateBanner(type);
+  setInterval(() => updateBanner(type), 10000);
 });
