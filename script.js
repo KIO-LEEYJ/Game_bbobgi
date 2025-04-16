@@ -4,7 +4,7 @@ function getFirebaseImageUrl(filename) {
   const encoded = encodeURIComponent(`banner/${filename}`);
   const tokenMap = {
     'Banner_A-01.jpg': '12e10a44-8950-4ef5-a374-6d20e31af843',
-    'wony.gif': '토큰값을-여기에-입력',
+    'wony.gif': '12e10a44-8950-4ef5-a374-6d20e31af843',
   };
   const token = tokenMap[filename] || '';
   return `https://firebasestorage.googleapis.com/v0/b/kiolab-banner.appspot.com/o/${encoded}?alt=media&token=${token}`;
@@ -23,6 +23,7 @@ async function updateBanner(type, imgId, linkId) {
 
     if (img && link && data.imageUrl && data.linkUrl) {
       const filename = data.imageUrl.split('/').pop().split('?')[0].split('%2F').pop();
+      console.log(`🧩 추출된 파일 이름: ${filename}`);
       const finalUrl = getFirebaseImageUrl(filename);
 
       img.style.opacity = 0;
