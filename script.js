@@ -55,7 +55,7 @@ async function updateBanner(type, imgId, linkId) {
     img.onload = () => img.style.opacity = 1;
     img.onerror = () => {
       console.warn(`⚠️ ${type} 배너 로딩 실패 - 기본 이미지로 대체`);
-      img.src = "/assets/fallback.jpg";
+      img.src = "./assets/fallback.jpg";
     };
     img.src = data.imageUrl;
     link.href = data.linkUrl;
