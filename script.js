@@ -1,15 +1,4 @@
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzi4Nhml9FC9_PV7dw86d07W_d22d_5LysN3ggx5aDZ5L69u_8zjR7yzeZWqRRwbMkYOQ/exec';
-
-function preloadImage(url, onLoad) {
-  const img = new Image();
-  img.crossOrigin = 'anonymous';
-  img.onload = () => onLoad(url); // 전달받은 URL 그대로 넘김
-  img.onerror = () => {
-    console.warn(`❌ 이미지 사전 로딩 실패: ${url}`);
-    onLoad(null);
-  };
-  img.src = url;
-}
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzBvzmhuqTQEPDNeIeEe3okMfAH3s9-LHaAXTOyko4MZE1SK2gVCO37kV3l7G3wCP-irw/exec';
 
 async function updateBanner(type) {
   const imgId = `banner-${type.toLowerCase()}-img`;
@@ -18,6 +7,10 @@ async function updateBanner(type) {
   try {
     const response = await fetch(`${WEB_APP_URL}?type=${type}`);
     const data = await response.json();
+    if (!data.imageUrl || !data.linkUrl) {
+      console.warn(`⚠️ [${type}] API 응답에 필요한 값이 없음`, data);
+      return;
+    }
 
     console.log(`✅ [${type}] 배너 로드 완료`);
     console.log(`🖼️ 이미지 URL: ${data.imageUrl}`);
@@ -26,26 +19,26 @@ async function updateBanner(type) {
     const img = document.getElementById(imgId);
     const link = document.getElementById(linkId);
 
-    if (!img || !link || !data.imageUrl || !data.linkUrl) {
-      console.warn(`⚠️ [${type}] 유효하지 않은 데이터`, {
-        imageUrl: data.imageUrl,
-        linkUrl: data.linkUrl,
-        imgElement: img,
-        linkElement: link
-      });
+    if (!img || !link) {
+      console.warn(`⚠️ [${type}] DOM 요소를 찾을 수 없음`, { imgId, linkId });
       return;
     }
 
     preloadImage(data.imageUrl, (loadedSrc) => {
+      document.querySelector(`#${imgId}-spinner`)?.classList.remove('hidden');
       if (loadedSrc) {
         img.style.opacity = 0;
         img.src = loadedSrc;
         img.onload = () => {
-          img.style.opacity = 1;
+          setTimeout(() => {
+            img.style.opacity = 1;
+            document.querySelector(`#${imgId}-spinner`)?.classList.add('hidden');
+          }, 50);
         };
         link.href = data.linkUrl;
       } else {
         img.src = '/assets/fallback.jpg';
+        document.querySelector(`#${imgId}-spinner`)?.classList.add('hidden');
       }
     });
 
@@ -54,7 +47,17 @@ async function updateBanner(type) {
   }
 }
 
-// A/B 배너 동시 업데이트 및 주기적 새로고침
+function preloadImage(url, onLoad) {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => onLoad(url);
+  img.onerror = () => {
+    console.warn(`❌ 이미지 사전 로딩 실패: ${url}`);
+    onLoad(null);
+  };
+  img.src = url;
+}
+
 ['A', 'B'].forEach(type => {
   updateBanner(type);
   setInterval(() => updateBanner(type), 10000);
