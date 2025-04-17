@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["https://lab-01-five.vercel.app"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
