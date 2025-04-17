@@ -27,7 +27,12 @@ async function updateBanner(type) {
     const link = document.getElementById(linkId);
 
     if (!img || !link || !data.imageUrl || !data.linkUrl) {
-      console.warn(`⚠️ [${type}] 유효하지 않은 데이터`);
+      console.warn(`⚠️ [${type}] 유효하지 않은 데이터`, {
+        imageUrl: data.imageUrl,
+        linkUrl: data.linkUrl,
+        imgElement: img,
+        linkElement: link
+      });
       return;
     }
 
