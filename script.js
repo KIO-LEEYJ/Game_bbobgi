@@ -1,4 +1,4 @@
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwhJIUTq587n_vVzKp7H8KiEi6E69KNTGSbo32sPJ1xTaNx5i2Vw-yzLM76uLvBqaxAfw/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzi4Nhml9FC9_PV7dw86d07W_d22d_5LysN3ggx5aDZ5L69u_8zjR7yzeZWqRRwbMkYOQ/exec';
 
 function preloadImage(url, onLoad) {
   const img = new Image();
