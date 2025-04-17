@@ -1,4 +1,4 @@
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzBvzmhuqTQEPDNeIeEe3okMfAH3s9-LHaAXTOyko4MZE1SK2gVCO37kV3l7G3wCP-irw/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzgYP9BEkcwlmsNsHZpQc--4VuJX0fXPPrUKW4DxW8dq3BBxZVm71Wa3n2-g_6Nw3t6Cg/exec';
 
 async function updateBanner(type) {
   const imgId = `banner-${type.toLowerCase()}-img`;
