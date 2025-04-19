@@ -34,3 +34,4 @@ out/
 *.rar
 
 # 폰트 파일은 포함할 것 (woff2 등 포함 허용)
+# fonts/pretendard/ 은 Git에 포함되므로 제외하지 않음
