@@ -1,18 +1,21 @@
 // 초기 설정값
-let defaultTotalTiles = 25; // 기본 총 칸수
-const minTileSize = 140;
-const maxBoardWidth = 810;
+let defaultTotalTiles = 9; // 기본 총 칸수
+const minTileSize = 100;
+const maxBoardWidth = 810; // 가로 최대
+const maxBoardHeight = 600; // 세로 최대
 const gapSize = 20; // 타일 간격
 
 // 시작 버튼 클릭 시 실행할 함수
 function startGame() {
   const totalInput = document.getElementById("totalTiles");
+  const winnerInput = document.getElementById("winnerTiles");
   const totalTiles = parseInt(totalInput?.value) || defaultTotalTiles;
-  generateGrid(totalTiles);
+  const winnerTiles = parseInt(winnerInput?.value) || 1;
+  generateGrid(totalTiles, winnerTiles);
 }
 
 // 그리드 생성 함수
-function generateGrid(totalTiles) {
+function generateGrid(totalTiles, winnerTiles) {
   const board = document.getElementById("board");
   board.innerHTML = ""; // 기존 타일 초기화
 
@@ -22,7 +25,9 @@ function generateGrid(totalTiles) {
 
   for (let cols = 1; cols <= totalTiles; cols++) {
     const tentativeTileSize = (maxBoardWidth - (cols - 1) * gapSize) / cols;
-    if (tentativeTileSize >= minTileSize) {
+    const rows = Math.ceil(totalTiles / cols);
+    const totalHeight = rows * tentativeTileSize + (rows - 1) * gapSize;
+    if (tentativeTileSize >= minTileSize && totalHeight <= maxBoardHeight) {
       bestCols = cols;
       bestTileSize = tentativeTileSize;
     } else {
@@ -36,10 +41,11 @@ function generateGrid(totalTiles) {
   board.className = "grid gap-5";
   board.style.gridTemplateColumns = `repeat(${bestCols}, ${bestTileSize}px)`;
   board.style.width = `${maxBoardWidth}px`;
+  board.style.height = `${maxBoardHeight}px`;
 
   // 랜덤 당첨 타일 선택
   let winnerIndices = new Set();
-  while (winnerIndices.size < Math.min(totalTiles, 1)) {
+  while (winnerIndices.size < Math.min(totalTiles, winnerTiles)) {
     const randomIndex = Math.floor(Math.random() * totalTiles);
     winnerIndices.add(randomIndex);
   }
@@ -76,12 +82,14 @@ function generateGrid(totalTiles) {
 // 페이지 로딩 시 기본 25칸 설정
 window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("totalTiles").value = defaultTotalTiles;
+  document.getElementById("winnerTiles").value = 1;
   startGame();
 });
 
 // 버튼 연결
 document.getElementById("resetBtn").addEventListener("click", () => {
   document.getElementById("totalTiles").value = defaultTotalTiles;
+  document.getElementById("winnerTiles").value = 1;
   startGame();
 });
 

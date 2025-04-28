@@ -1,6 +1,7 @@
 #board {
   margin-top: 1.5rem; /* mt-6 */
   transform-origin: top center; /* 스케일 시 상단 고정 */
+  grid-auto-flow: row; /* 가로 방향으로 그리드 흐름 설정 */
 }
 
 .tile {
