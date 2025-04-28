@@ -1,6 +1,6 @@
 // 초기 설정값
 let defaultTotalTiles = 9; // 기본 총 칸수
-const minTileSize = 100;
+const minTileSize = 20;
 const maxBoardWidth = 810; // 가로 최대
 const maxBoardHeight = 600; // 세로 최대
 const gapSize = 20; // 타일 간격
