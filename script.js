@@ -42,7 +42,7 @@ function generateGrid(cols, rows, winners) {
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const tile = document.createElement("div");
-      tile.className = "tile";
+      tile.className = "tile tile-default"; // tile과 tile-default 클래스 동시에 적용
       tile.textContent = r * cols + c + 1; // 기본 번호 부여
       board.appendChild(tile);
     }
@@ -68,10 +68,12 @@ function generateGrid(cols, rows, winners) {
   tiles.forEach((tile, index) => {
     tile.addEventListener("click", function handleTileClick() {
       if (tile.classList.contains("winner")) {
-        tile.classList.add("hit");
+        tile.classList.remove("tile-default");
+        tile.classList.add("tile-win");
         tile.textContent = "🎯"; // 당첨된 타일 클릭 시 🎯 표시
       } else {
-        tile.classList.add("miss");
+        tile.classList.remove("tile-default");
+        tile.classList.add("tile-lose");
         tile.textContent = "❌"; // 꽝 타일 클릭 시 ❌ 표시
       }
       tile.removeEventListener("click", handleTileClick); // 한 번 클릭 후 비활성화
