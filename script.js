@@ -13,11 +13,11 @@ function startGame() {
   const rows = parseInt(rowsInput?.value) || defaultRows;
   const winners = parseInt(winnersInput?.value) || defaultWinners;
 
-  generateGrid(cols, rows);
+  generateGrid(cols, rows, winners);
 }
 
 // 그리드 생성 함수
-function generateGrid(cols, rows) {
+function generateGrid(cols, rows, winners) {
   const board = document.getElementById("board");
   board.innerHTML = ""; // 기존 타일 초기화
 
@@ -52,7 +52,7 @@ function generateGrid(cols, rows) {
   let totalTiles = cols * rows;
   let winnerIndices = new Set();
 
-  while (winnerIndices.size < Math.min(totalTiles, defaultWinners)) {
+  while (winnerIndices.size < Math.min(totalTiles, winners)) {
     const randomIndex = Math.floor(Math.random() * totalTiles);
     winnerIndices.add(randomIndex);
   }
