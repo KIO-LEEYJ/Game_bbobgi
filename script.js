@@ -3,31 +3,21 @@ let defaultCols = 5;
 let defaultRows = 5;
 let defaultWinners = 1;
 
-// 스케일 조정 전용 함수
+// 스케일 조정 전용 함수 (가로 기준만 적용, 세로는 비례)
 function adjustBoardScale(cols, rows) {
   const tileSize = 140; // 기본 타일 크기
   const gapSize = 20;   // 타일 간격
   const totalWidth = cols * tileSize + (cols - 1) * gapSize;
-  const totalHeight = rows * tileSize + (rows - 1) * gapSize;
   const board = document.getElementById("board");
 
-  const maxWidth = 1200;
-  const maxHeight = 1200;
+  const maxWidth = 815; // 무조건 가로 기준
 
-  let widthScale = 1;
-  let heightScale = 1;
-
+  let scale = 1;
   if (totalWidth > maxWidth) {
-    widthScale = maxWidth / totalWidth;
+    scale = maxWidth / totalWidth;
   }
 
-  if (totalHeight > maxHeight) {
-    heightScale = maxHeight / totalHeight;
-  }
-
-  const finalScale = Math.min(widthScale, heightScale);
-
-  board.style.transform = `scale(${finalScale})`;
+  board.style.transform = `scale(${scale})`;
 }
 
 // 시작 버튼 클릭 시 실행할 함수
