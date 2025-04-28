@@ -48,9 +48,9 @@ function generateGrid(cols, rows, winners) {
   const board = document.getElementById("board");
   board.innerHTML = ""; // 기존 타일 초기화
 
-  // 기존 grid-cols 클래스를 제거
-  board.className = "grid gap-5"; // gap 20px 기준, grid 초기화
-  board.classList.add(`grid-cols-${cols}`); // 입력값(cols)에 맞춰 grid-cols 설정
+  // 기존 클래스 초기화 및 grid 기본 설정
+  board.className = "grid gap-5"; // gap 20px 유지
+  board.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`; // 인라인 스타일로 컬럼 설정
 
   // 타일 생성
   for (let r = 0; r < rows; r++) {
@@ -74,7 +74,6 @@ function generateGrid(cols, rows, winners) {
   tiles.forEach((tile, index) => {
     if (winnerIndices.has(index)) {
       tile.classList.add("winner");
-      // 🎉를 이 시점에만 표시
     }
   });
 
