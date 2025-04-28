@@ -39,11 +39,14 @@ img {
 }
 
 #board-container {
+  position: absolute;
+  top: 200px; /* 배너 하단으로부터 거리 조정 (필요시 조정 가능) */
+  left: 50%;
+  transform: translateX(-50%);
   max-width: 1200px;
   width: 100%;
   overflow-x: auto;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 2rem;
 }
