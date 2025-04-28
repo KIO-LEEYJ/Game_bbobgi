@@ -40,7 +40,7 @@ img {
 
 #board-container {
   position: absolute;
-  top: 250px; /* 배너 하단으로부터 거리 조정 (필요시 조정 가능) */
+  top: 2000px; /* 배너 하단으로부터 거리 조정 (필요시 조정 가능) */
   left: 50%;
   transform: translateX(-50%);
   max-width: 1200px;
