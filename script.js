@@ -9,15 +9,25 @@ function adjustBoardScale(cols, rows) {
   const gapSize = 20;   // 타일 간격
   const totalWidth = cols * tileSize + (cols - 1) * gapSize;
   const totalHeight = rows * tileSize + (rows - 1) * gapSize;
-  const totalSize = totalWidth + totalHeight;
   const board = document.getElementById("board");
 
-  if (totalSize > 2000) {
-    const scale = 2000 / totalSize;
-    board.style.transform = `scale(${scale})`;
-  } else {
-    board.style.transform = `scale(1)`;
+  const maxWidth = 815;
+  const maxHeight = 650;
+
+  let widthScale = 1;
+  let heightScale = 1;
+
+  if (totalWidth > maxWidth) {
+    widthScale = maxWidth / totalWidth;
   }
+
+  if (totalHeight > maxHeight) {
+    heightScale = maxHeight / totalHeight;
+  }
+
+  const finalScale = Math.min(widthScale, heightScale);
+
+  board.style.transform = `scale(${finalScale})`;
 }
 
 // 시작 버튼 클릭 시 실행할 함수
