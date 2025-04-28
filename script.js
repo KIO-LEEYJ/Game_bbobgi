@@ -84,7 +84,9 @@ function generateGrid(cols, rows, winners) {
     });
   });
 
-  adjustBoardScale(cols, rows);
+  requestAnimationFrame(() => {
+    adjustBoardScale(cols, rows);
+  });
 }
 
 // 페이지 로딩 시 기본 5x5 설정
