@@ -1,6 +1,3 @@
-
-
-
 // 초기 설정값
 let defaultCols = 5;
 let defaultRows = 5;
@@ -23,6 +20,10 @@ function startGame() {
 function generateGrid(cols, rows) {
   const board = document.getElementById("board");
   board.innerHTML = ""; // 기존 타일 초기화
+
+  // 기존 grid-cols 클래스를 제거
+  board.className = "grid gap-5"; // gap 20px 기준, grid 초기화
+  board.classList.add(`grid-cols-${cols}`); // 입력값(cols)에 맞춰 grid-cols 설정
 
   // 가로 세로 길이에 따라 스케일 체크
   const totalWidth = cols * 140 + (cols - 1) * 20;
@@ -47,7 +48,7 @@ function generateGrid(cols, rows) {
     }
   }
 
-  // 당첨 타일 랜덤 지정
+  const tiles = board.querySelectorAll(".tile");
   let totalTiles = cols * rows;
   let winnerIndices = new Set();
 
@@ -56,23 +57,22 @@ function generateGrid(cols, rows) {
     winnerIndices.add(randomIndex);
   }
 
-  const tiles = board.querySelectorAll(".tile");
   tiles.forEach((tile, index) => {
     if (winnerIndices.has(index)) {
       tile.classList.add("winner");
-      tile.textContent = "🎉"; // 당첨 표시
+      // 🎉를 이 시점에만 표시
     }
   });
 
   // 타일 클릭 이벤트 추가
-  tiles.forEach((tile) => {
+  tiles.forEach((tile, index) => {
     tile.addEventListener("click", function handleTileClick() {
       if (tile.classList.contains("winner")) {
         tile.classList.add("hit");
-        tile.textContent = "🎯"; // 당첨된 타일 클릭 시 표시 변경
+        tile.textContent = "🎯"; // 당첨된 타일 클릭 시 🎯 표시
       } else {
         tile.classList.add("miss");
-        tile.textContent = "❌"; // 꽝 타일 클릭 시 표시 변경
+        tile.textContent = "❌"; // 꽝 타일 클릭 시 ❌ 표시
       }
       tile.removeEventListener("click", handleTileClick); // 한 번 클릭 후 비활성화
     });
