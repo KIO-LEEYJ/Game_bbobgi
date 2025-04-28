@@ -10,7 +10,7 @@ function adjustBoardScale(cols, rows) {
   const totalWidth = cols * tileSize + (cols - 1) * gapSize;
   const board = document.getElementById("board");
 
-  const maxWidth = 1000; // 무조건 가로 기준
+  const maxWidth = 1600; // 무조건 가로 기준
 
   let scale = 1;
   if (totalWidth > maxWidth) {
