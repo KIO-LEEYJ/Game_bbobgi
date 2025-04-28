@@ -10,13 +10,13 @@ function adjustBoardScale(cols, rows) {
   const totalWidth = cols * tileSize + (cols - 1) * gapSize;
   const totalHeight = rows * tileSize + (rows - 1) * gapSize;
   const totalSize = totalWidth + totalHeight;
-  const boardContainer = document.getElementById("board-container");
+  const board = document.getElementById("board");
 
   if (totalSize > 2000) {
     const scale = 2000 / totalSize;
-    boardContainer.style.transform = `scale(${scale})`;
+    board.style.transform = `scale(${scale})`;
   } else {
-    boardContainer.style.transform = `scale(1)`;
+    board.style.transform = `scale(1)`;
   }
 }
 
