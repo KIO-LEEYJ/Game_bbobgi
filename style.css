@@ -41,14 +41,8 @@ img {
 }
 
 #board-container {
-  position: absolute;
-  top: 180px; /* 배너 하단으로부터 거리 조정 (필요시 조정 가능) */
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: 1200px;
-  width: 100%;
-  overflow-x: auto;
+  margin-top: 2rem; /* 배너 하단 여백 */
+  width: 810px; /* 고정 가로 */
   display: flex;
   justify-content: center;
-  align-items: flex-start;
 }

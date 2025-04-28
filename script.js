@@ -19,29 +19,31 @@ function generateGrid(totalTiles, winnerTiles) {
   const board = document.getElementById("board");
   board.innerHTML = ""; // 기존 타일 초기화
 
-  // 최적 가로열수 찾기
   let bestCols = 1;
   let bestTileSize = minTileSize;
 
   for (let cols = 1; cols <= totalTiles; cols++) {
     const tentativeTileSize = (maxBoardWidth - (cols - 1) * gapSize) / cols;
     const rows = Math.ceil(totalTiles / cols);
-    const totalHeight = rows * tentativeTileSize + (rows - 1) * gapSize;
-    if (tentativeTileSize >= minTileSize && totalHeight <= maxBoardHeight) {
+    const tentativeTotalHeight = rows * tentativeTileSize + (rows - 1) * gapSize;
+
+    if (
+      tentativeTileSize >= minTileSize &&
+      (tentativeTileSize * cols + (cols - 1) * gapSize <= maxBoardWidth) &&
+      tentativeTotalHeight <= maxBoardHeight
+    ) {
       bestCols = cols;
       bestTileSize = tentativeTileSize;
-    } else {
-      break;
     }
   }
 
   const rows = Math.ceil(totalTiles / bestCols);
 
-  // 그리드 스타일 적용
-  board.className = "grid gap-5";
+  // 보드 스타일 적용
+  board.className = "grid gap-[20px]";
   board.style.gridTemplateColumns = `repeat(${bestCols}, ${bestTileSize}px)`;
   board.style.width = `${maxBoardWidth}px`;
-  board.style.height = `${maxBoardHeight}px`;
+  board.style.height = "auto";
 
   // 랜덤 당첨 타일 선택
   let winnerIndices = new Set();
