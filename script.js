@@ -88,4 +88,13 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 // 시작 버튼 연결
+
+// 리셋 버튼 연결
+document.getElementById("resetBtn").addEventListener("click", () => {
+  document.getElementById("cols").value = defaultCols;
+  document.getElementById("rows").value = defaultRows;
+  document.getElementById("winners").value = defaultWinners;
+  startGame();
+});
+
 document.getElementById("startBtn").addEventListener("click", startGame);
