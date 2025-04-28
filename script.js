@@ -1,7 +1,7 @@
 // 초기 설정값
 let defaultTotalTiles = 25; // 기본 총 칸수
 const minTileSize = 140;
-const maxBoardWidth = 815;
+const maxBoardWidth = 810;
 const gapSize = 20; // 타일 간격
 
 // 시작 버튼 클릭 시 실행할 함수
