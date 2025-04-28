@@ -1,7 +1,11 @@
 #board {
   margin-top: 1.5rem; /* mt-6 */
   transform-origin: top center; /* 스케일 시 상단 고정 */
-  grid-auto-flow: row; /* 가로 방향으로 그리드 흐름 설정 */
+  grid-auto-flow: dense; /* 배치가 효율적으로 이루어짐 */
+  display: grid;
+  justify-items: center;    /* 타일을 가로로 중앙 정렬 */
+  align-items: center;      /* 타일을 세로로 중앙 정렬 */
+  gap: 10px;
 }
 
 .tile {
@@ -43,6 +47,9 @@ img {
 #board-container {
   margin-top: 2rem; /* 배너 하단 여백 */
   width: 810px; /* 고정 가로 */
+  height: 600px; /* 고정 세로 */
   display: flex;
-  justify-content: center;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: flex-start; /* 세로 중앙정렬 제거 */
+  position: relative; /* 상위 요소의 위치 조정 */
 }
