@@ -37,3 +37,13 @@
 img {
   transition: opacity 0.3s ease-in-out;
 }
+
+#board-container {
+  max-width: 1200px;
+  width: 100%;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
