@@ -1,5 +1,6 @@
 #board {
   margin-top: 1.5rem; /* mt-6 */
+  transform-origin: top center; /* 스케일 시 상단 고정 */
 }
 
 .tile {
