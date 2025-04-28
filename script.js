@@ -11,8 +11,8 @@ function adjustBoardScale(cols, rows) {
   const totalHeight = rows * tileSize + (rows - 1) * gapSize;
   const board = document.getElementById("board");
 
-  const maxWidth = 815;
-  const maxHeight = 650;
+  const maxWidth = 1200;
+  const maxHeight = 1200;
 
   let widthScale = 1;
   let heightScale = 1;
