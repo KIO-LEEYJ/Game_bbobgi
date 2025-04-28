@@ -3,6 +3,23 @@ let defaultCols = 5;
 let defaultRows = 5;
 let defaultWinners = 1;
 
+// 스케일 조정 전용 함수
+function adjustBoardScale(cols, rows) {
+  const tileSize = 140; // 기본 타일 크기
+  const gapSize = 20;   // 타일 간격
+  const totalWidth = cols * tileSize + (cols - 1) * gapSize;
+  const totalHeight = rows * tileSize + (rows - 1) * gapSize;
+  const totalSize = totalWidth + totalHeight;
+  const boardContainer = document.getElementById("board-container");
+
+  if (totalSize > 2000) {
+    const scale = 2000 / totalSize;
+    boardContainer.style.transform = `scale(${scale})`;
+  } else {
+    boardContainer.style.transform = `scale(1)`;
+  }
+}
+
 // 시작 버튼 클릭 시 실행할 함수
 function startGame() {
   const colsInput = document.getElementById("cols");
@@ -24,19 +41,6 @@ function generateGrid(cols, rows, winners) {
   // 기존 grid-cols 클래스를 제거
   board.className = "grid gap-5"; // gap 20px 기준, grid 초기화
   board.classList.add(`grid-cols-${cols}`); // 입력값(cols)에 맞춰 grid-cols 설정
-
-  // 가로 세로 길이에 따라 스케일 체크
-  const totalWidth = cols * 140 + (cols - 1) * 20;
-  const totalHeight = rows * 140 + (rows - 1) * 20;
-  const maxSize = Math.max(totalWidth, totalHeight);
-  const boardContainer = document.getElementById("board-container");
-
-  if (maxSize > 2000) {
-    const scale = 1200 / maxSize;
-    boardContainer.style.transform = `scale(${scale})`;
-  } else {
-    boardContainer.style.transform = `scale(1)`;
-  }
 
   // 타일 생성
   for (let r = 0; r < rows; r++) {
@@ -79,6 +83,8 @@ function generateGrid(cols, rows, winners) {
       tile.removeEventListener("click", handleTileClick); // 한 번 클릭 후 비활성화
     });
   });
+
+  adjustBoardScale(cols, rows);
 }
 
 // 페이지 로딩 시 기본 5x5 설정
