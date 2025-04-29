@@ -2,7 +2,7 @@
 let defaultTotalTiles = 9; // 기본 총 칸수
 const minTileSize = 140;
 const maxBoardWidth = 810; // 가로 최대
-const maxBoardHeight = 600; // 세로 최대
+const maxBoardHeight = 810; // 세로 최대
 const gapSize = 20; // 타일 간격
 
 // 시작 버튼 클릭 시 실행할 함수
@@ -19,14 +19,15 @@ function generateGrid(totalTiles, winnerTiles) {
   const board = document.getElementById("board");
   board.innerHTML = ""; // 기존 타일 초기화
 
-  let bestCols = 1;
+  let bestCols = 3; // 기본값을 3으로 설정 (3의 배수로 고정)
   let bestRows = totalTiles;
   let bestTileSize = 0;
 
-  for (let cols = 1; cols <= totalTiles; cols++) {
+  // 3의 배수로 가로줄의 타일 갯수를 설정하도록 수정
+  for (let cols = 3; cols <= totalTiles; cols += 3) { // 3의 배수로만 증가
     const rows = Math.ceil(totalTiles / cols);
-    const tentativeTileWidth = (maxBoardWidth - (cols - 1) * gapSize) / cols;
-    const tentativeTileHeight = (maxBoardHeight - (rows - 1) * gapSize) / rows;
+    const tentativeTileWidth = (maxBoardWidth - (cols - 1) * gapSize) / cols; // 타일 너비 계산
+    const tentativeTileHeight = (maxBoardHeight - (rows - 1) * gapSize) / rows; // 타일 높이 계산
     const tentativeTileSize = Math.min(tentativeTileWidth, tentativeTileHeight);
 
     if (tentativeTileSize > bestTileSize) {
@@ -41,7 +42,7 @@ function generateGrid(totalTiles, winnerTiles) {
   board.style.gridTemplateColumns = `repeat(${bestCols}, ${bestTileSize}px)`;
   board.style.gridTemplateRows = `repeat(${bestRows}, ${bestTileSize}px)`;
   board.style.width = `${maxBoardWidth}px`;
-  board.style.height = "auto";
+  board.style.height = `${maxBoardHeight}px`;
 
   // 랜덤 당첨 타일 선택
   let winnerIndices = new Set();
