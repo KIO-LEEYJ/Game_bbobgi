@@ -86,6 +86,7 @@
       box-sizing: border-box;
     }
 
+    /*-- 타일 기본 스타일: 배경색, 정렬, 폰트, 크기, 마우스 포인터 --*/
     .tile {
       background-color: #ff6699;
       border-radius: 10px;
@@ -100,12 +101,14 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
+    /*-- 타일 내부 텍스트 스타일: CookieRun 폰트 적용 --*/
     .tile span {
       font-family: 'CookieRun', sans-serif;
       font-size: 0.9em;
       font-weight: 700;
       letter-spacing: -0.01em;
     }
+    /*-- 타일 상태별 텍스트 색상 및 글로우 효과 (당첨/꽝) --*/
     .tile .win {
       color: white;
       text-shadow: 0 0 8px #bbf7d0, 0 0 12px #22c55e;
@@ -115,6 +118,7 @@
       color: #c32e15;
     }
 
+    /*-- 당첨 타일에 적용되는 깜빡이는 글로우 애니메이션 --*/
     @keyframes pulse-glow {
       0%, 100% {
         box-shadow: 0 0 30px rgba(34, 197, 94, 1), 0 0 40px rgba(250, 204, 21, 0.9);
@@ -124,6 +128,7 @@
       }
     }
 
+    /*-- 당첨 타일에 적용되는 글로우 애니메이션 반복 설정 --*/
     .pulse-glow {
       animation: pulse-glow 1.0s infinite;
     }
@@ -206,6 +211,7 @@
       });
 
       const style = document.createElement('style');
+      // 타일 hover 및 active 상태 스타일 동적 추가
       style.textContent = `
         .tile:hover {
           background-color: white;
