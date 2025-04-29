@@ -65,6 +65,38 @@
     .title {
       font-family: 'CookieRun-Regular', sans-serif;
     }
+
+    #board-container {
+      position: relative;
+      width: 810px;
+      height: 810px;
+      margin-top: 30px;
+    }
+
+    #board {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: grid;
+      gap: 5px;
+      width: 810px;
+      height: 810px;
+      box-sizing: border-box;
+    }
+
+    .tile {
+      background-color: #ff6699;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: white;
+      user-select: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -84,32 +116,32 @@
     </div>
   </div>
 
-<!-- 🆕 배너 + 뽑기판 통합 래퍼 -->
-<div id="banner-wrapper" class="relative flex flex-col items-center">
+  <!-- 🆕 배너 + 뽑기판 통합 래퍼 -->
+  <div id="banner-wrapper" class="relative flex flex-col items-center">
 
-  <!-- 배너 영역 -->
-  <div class="flex gap-8">
-    <div class="relative">
-      <a href="#" target="_blank">
-        <img class="w-[390px] h-[180px] shadow-inner rounded-md object-cover bg-[#fef2f2]"
-          src="./images/banner_A_sample.gif" alt="왼쪽 배너 이미지 (랜덤 노출)" loading="lazy" />
-      </a>
+    <!-- 배너 영역 -->
+    <div class="flex gap-8">
+      <div class="relative">
+        <a href="#" target="_blank">
+          <img class="w-[390px] h-[180px] shadow-inner rounded-md object-cover bg-[#fef2f2]"
+            src="./images/banner_A_sample.gif" alt="왼쪽 배너 이미지 (랜덤 노출)" loading="lazy" />
+        </a>
+      </div>
+      <div class="relative">
+        <a href="#" target="_blank">
+          <img class="w-[390px] h-[180px] shadow-inner rounded-md object-cover bg-[#fef2f2]"
+            src="./images/banner_B_sample.gif" alt="오른쪽 배너 이미지 (랜덤 노출)" loading="lazy" />
+        </a>
+      </div>
     </div>
-    <div class="relative">
-      <a href="#" target="_blank">
-        <img class="w-[390px] h-[180px] shadow-inner rounded-md object-cover bg-[#fef2f2]"
-          src="./images/banner_B_sample.gif" alt="오른쪽 배너 이미지 (랜덤 노출)" loading="lazy" />
-      </a>
+
+    <!-- 뽑기판 영역 -->
+    <div id="board-container">
+      <div id="board" class="grid gap-5">
+        <!-- 동적으로 타일 생성 예정 -->
+      </div>
     </div>
   </div>
-
-  <!-- 뽑기판 영역 -->
-  <div id="board-container">
-    <div id="board" class="grid gap-5">
-      <!-- 동적으로 타일 생성 예정 -->
-    </div>
-  </div>
-</div>
 
   <script src="./script.js" defer></script>
 </body>
