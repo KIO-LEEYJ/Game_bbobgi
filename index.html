@@ -89,14 +89,43 @@
     .tile {
       background-color: #ff6699;
       border-radius: 10px;
-      display: flex;
+      display: inline-flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       font-weight: 700;
-      font-size: 2.0em;
+      font-size: 2.5em;
       color: white;
       user-select: none;
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .tile span {
+      font-family: 'CookieRun', sans-serif;
+      font-size: 0.9em;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .tile .win {
+      color: white;
+      text-shadow: 0 0 8px #bbf7d0, 0 0 12px #22c55e;
+      /* glow effect */
+    }
+    .tile .lose {
+      color: #c32e15;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 30px rgba(34, 197, 94, 1), 0 0 40px rgba(250, 204, 21, 0.9);
+      }
+      50% {
+        box-shadow: 0 0 5px rgba(34, 197, 94, 0.4), 0 0 10px rgba(250, 204, 21, 0.3);
+      }
+    }
+
+    .pulse-glow {
+      animation: pulse-glow 1.0s infinite;
     }
   </style>
 </head>
@@ -144,6 +173,52 @@
     </div>
   </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const board = document.getElementById('board');
+      board.addEventListener('click', (e) => {
+        // Find the actual .tile element in case inner span or text is clicked
+        let tile = e.target;
+        if (!tile.classList.contains('tile')) {
+          tile = tile.closest('.tile');
+        }
+        if (tile && tile.classList.contains('tile') && !tile.classList.contains('clicked')) {
+          tile.classList.add('clicked');
+          // Determine result by checking initial content (before click)
+          // We'll use a data-result attribute for robustness if available, else fallback to text
+          let result = tile.dataset.result || tile.textContent.trim();
+          if (result === '🎉') {
+            tile.style.backgroundColor = '#4ade80'; // 연두색 (Tailwind green-400)
+            tile.innerHTML = '🎉<br><span class="win">당첨!</span>';
+            tile.style.transform = 'scale(1.1)';
+            tile.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.8), 0 0 30px rgba(250, 204, 21, 0.6)';
+            tile.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+            tile.classList.add('pulse-glow');
+          } else if (result === '❌') {
+            tile.style.backgroundColor = '#d2d2d2'; // 회색 (Tailwind gray-400)
+            tile.innerHTML = '❌<br><span class="lose">꽝!</span>';
+            tile.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              tile.style.transform = 'scale(1)';
+            }, 200);
+          }
+        }
+      });
+
+      const style = document.createElement('style');
+      style.textContent = `
+        .tile:hover {
+          background-color: white;
+          color: #FF6699;
+          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        .tile:active {
+          transform: scale(0.95);
+        }
+      `;
+      document.head.appendChild(style);
+    });
+  </script>
   <script src="./script.js" defer></script>
 </body>
 

@@ -105,7 +105,7 @@ function generateGrid(totalTiles, winnerTiles) {
     // 클릭 이벤트 추가
     tile.addEventListener('click', function () {
       if (this.dataset.status === 'winner') {
-        this.textContent = "🎯";
+        this.textContent = "🎉";
       } else {
         this.textContent = "❌";
       }
