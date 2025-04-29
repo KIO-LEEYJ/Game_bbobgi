@@ -1,6 +1,6 @@
 #board-container {
   position: fixed; /* 상단 고정 */
-  top: 20px; /* 상단에서 20px 떨어지게 설정 */
+  top: 1000px; /* 상단에서 20px 떨어지게 설정 */
   left: 50%; /* 가로 중앙 정렬 */
   transform: translateX(-50%); /* 정확한 중앙 정렬 */
   margin-top: 2rem;
