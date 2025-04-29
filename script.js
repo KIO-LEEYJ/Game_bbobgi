@@ -1,6 +1,6 @@
 // 그리드 크기 및 간격 상수
 const GRID_SIZE_WIDTH = 810;
-const GRID_SIZE_HEIGHT = 810;
+const GRID_SIZE_HEIGHT = 600;
 const TILE_GAP = 15;
 const MIN_TILE_SIZE = 30;
 
