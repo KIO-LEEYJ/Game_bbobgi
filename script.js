@@ -24,8 +24,11 @@ function generateGrid(totalTiles, winnerTiles) {
   let bestTileSize = 0;
 
   // 3의 배수로 가로줄의 타일 갯수를 설정하도록 수정
-  for (let cols = 3; cols <= totalTiles; cols += 3) { // 3의 배수로만 증가
-    const rows = Math.ceil(totalTiles / cols);
+  for (let cols = 3; cols <= totalTiles; cols++) {
+    // 3의 배수로 맞추는 부분 추가
+    cols = Math.ceil(cols / 3) * 3;
+
+    const rows = Math.ceil(totalTiles / cols); // 타일 수에 맞게 행 설정
     const tentativeTileWidth = (maxBoardWidth - (cols - 1) * gapSize) / cols; // 타일 너비 계산
     const tentativeTileHeight = (maxBoardHeight - (rows - 1) * gapSize) / rows; // 타일 높이 계산
     const tentativeTileSize = Math.min(tentativeTileWidth, tentativeTileHeight);
