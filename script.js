@@ -109,6 +109,20 @@ function generateGrid(totalTiles, winnerTiles) {
       } else {
         this.textContent = "❌";
       }
+      // 효과음 재생
+      const winSound = document.getElementById("winSound");
+      const loseSound = document.getElementById("loseSound");
+      if (this.dataset.status === 'winner') {
+        if (winSound) {
+          winSound.currentTime = 0;
+          winSound.play();
+        }
+      } else {
+        if (loseSound) {
+          loseSound.currentTime = 0;
+          loseSound.play();
+        }
+      }
       this.style.pointerEvents = 'none'; // 추가 클릭 방지
     });
 
