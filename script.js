@@ -123,6 +123,12 @@ function generateGrid(totalTiles, winnerTiles) {
           loseSound.play();
         }
       }
+      // GA4 이벤트 트래킹
+      gtag('event', 'tile_click', {
+        event_category: 'game',
+        event_label: this.dataset.status, // 'winner' 또는 'loser'
+        value: 1
+      });
       this.style.pointerEvents = 'none'; // 추가 클릭 방지
     });
 

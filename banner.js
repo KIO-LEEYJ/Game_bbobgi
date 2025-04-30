@@ -64,4 +64,22 @@ document.addEventListener('DOMContentLoaded', () => {
       indexB = (indexB + 1) % cycleB.length;
     }
   }
+
+  bannerALink.addEventListener('click', () => {
+    const banner = cycleA[(indexA - 1 + cycleA.length) % cycleA.length];
+    gtag('event', 'banner_click', {
+      event_category: 'banner',
+      event_label: banner.file || 'unknown_A',
+      value: 1
+    });
+  });
+
+  bannerBLink.addEventListener('click', () => {
+    const banner = cycleB[(indexB - 1 + cycleB.length) % cycleB.length];
+    gtag('event', 'banner_click', {
+      event_category: 'banner',
+      event_label: banner.file || 'unknown_B',
+      value: 1
+    });
+  });
 });
