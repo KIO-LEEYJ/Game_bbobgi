@@ -157,14 +157,16 @@
     <!-- 배너 영역 -->
     <div class="flex gap-8">
       <div class="relative">
-        <a href="#" target="_blank">
-          <img class="w-[390px] h-[180px] shadow-inner rounded-md object-cover bg-[#fef2f2]"
+        <!-- ✅ 좌측 A 배너 (meta.json folder: 'A') -->
+        <a id="linkA" href="#" target="_blank">
+          <img id="bannerA" class="w-[390px] h-[180px] shadow-inner rounded-md object-cover bg-[#fef2f2]"
             src="./images/banner_A_sample.gif" alt="왼쪽 배너 이미지 (랜덤 노출)" loading="lazy" />
         </a>
       </div>
       <div class="relative">
-        <a href="#" target="_blank">
-          <img class="w-[390px] h-[180px] shadow-inner rounded-md object-cover bg-[#fef2f2]"
+        <!-- ✅ 우측 B 배너 (meta.json folder: 'B') -->
+        <a id="linkB" href="#" target="_blank">
+          <img id="bannerB" class="w-[390px] h-[180px] shadow-inner rounded-md object-cover bg-[#fef2f2]"
             src="./images/banner_B_sample.gif" alt="오른쪽 배너 이미지 (랜덤 노출)" loading="lazy" />
         </a>
       </div>
@@ -225,7 +227,9 @@
       document.head.appendChild(style);
     });
   </script>
+</script>
   <script src="./script.js" defer></script>
+  <script src="./banner.js" defer></script>
 </body>
 
 </html>
